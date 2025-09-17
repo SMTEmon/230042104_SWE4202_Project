@@ -1,0 +1,3 @@
+I001,Dr. Rahman,CSE
+I002,Dr. Khan,EEE
+JN,JN,CSE

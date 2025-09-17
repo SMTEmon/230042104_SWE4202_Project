@@ -1,0 +1,5 @@
+admin,admin123,Admin,admin
+rahman,pass123,Instructor,I001
+alice,pass123,Student,S001
+emon,emon,Student,2300
+JN,JN,Instructor,JN
