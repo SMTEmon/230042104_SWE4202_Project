@@ -1,5 +1,5 @@
 # IntelliJ IDEA project files
-.idea
+.idea/
 *.iml
 
 # VS Code settings
@@ -16,13 +16,12 @@ build/
 Thumbs.db
 
 # IDE-specific files
-/shelf/
-/workspace.xml
-/httpRequests/
+shelf/
+workspace.xml
+httpRequests/
 
 # Logs
 *.log
 
 # Ignore data files if you don't want to track them in git
-#
-.gitignore
+# src/data/
