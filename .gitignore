@@ -1,5 +1,5 @@
 # IntelliJ IDEA project files
-.idea/
+.idea
 *.iml
 
 # VS Code settings
@@ -25,3 +25,4 @@ Thumbs.db
 
 # Ignore data files if you don't want to track them in git
 #
+.gitignore
