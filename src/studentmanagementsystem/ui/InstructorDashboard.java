@@ -10,6 +10,20 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class InstructorDashboard extends JFrame {
+    // Custom rounded border for modern buttons
+    private static class RoundedBorder extends javax.swing.border.AbstractBorder {
+        private final int radius;
+        public RoundedBorder(int radius) { this.radius = radius; }
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.setColor(Color.GRAY);
+            g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+        }
+        @Override
+        public Insets getBorderInsets(Component c) { return new Insets(4, 8, 4, 8); }
+        @Override
+        public Insets getBorderInsets(Component c, Insets insets) { return getBorderInsets(c); }
+    }
 
     private String instructorId;
     private JTable coursesTable;
@@ -19,44 +33,51 @@ public class InstructorDashboard extends JFrame {
 
     public InstructorDashboard(String instructorId) {
         this.instructorId = instructorId;
-        setTitle("Instructor Dashboard - " + instructorId);
-        setSize(800, 600);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null);
+    setTitle("Instructor - " + instructorId);
+    setSize(600, 400);
+    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+    setLocationRelativeTo(null);
 
-        // Main layout
-        setLayout(new BorderLayout(10, 10));
+    // Main layout
+    setLayout(new BorderLayout(5, 5));
 
-        // Top panel for courses
-        JPanel coursesPanel = new JPanel(new BorderLayout());
-        coursesPanel.setBorder(BorderFactory.createTitledBorder("My Courses"));
-        coursesModel = new DefaultTableModel(new String[]{"Code", "Title", "Credits"}, 0);
-        coursesTable = new JTable(coursesModel);
-        coursesPanel.add(new JScrollPane(coursesTable), BorderLayout.CENTER);
+    // Top panel for courses
+    JPanel coursesPanel = new JPanel(new BorderLayout());
+    coursesPanel.setBorder(BorderFactory.createTitledBorder("My Courses"));
+    coursesModel = new DefaultTableModel(new String[]{"Code", "Title", "Credits"}, 0);
+    coursesTable = new JTable(coursesModel);
+    coursesTable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    coursesPanel.add(new JScrollPane(coursesTable), BorderLayout.CENTER);
 
-        // Bottom panel for enrolled students
-        JPanel studentsPanel = new JPanel(new BorderLayout());
-        studentsPanel.setBorder(BorderFactory.createTitledBorder("Enrolled Students"));
-        studentsModel = new DefaultTableModel(new String[]{"ID", "Name", "Grade"}, 0);
-        studentsTable = new JTable(studentsModel);
-        studentsPanel.add(new JScrollPane(studentsTable), BorderLayout.CENTER);
+    // Bottom panel for enrolled students
+    JPanel studentsPanel = new JPanel(new BorderLayout());
+    studentsPanel.setBorder(BorderFactory.createTitledBorder("Enrolled Students"));
+    studentsModel = new DefaultTableModel(new String[]{"ID", "Name", "Grade"}, 0);
+    studentsTable = new JTable(studentsModel);
+    studentsTable.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    studentsPanel.add(new JScrollPane(studentsTable), BorderLayout.CENTER);
 
-        // Button to assign grade
-        JButton assignGradeButton = new JButton("Assign/Update Grade");
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT));
-        buttonPanel.add(assignGradeButton);
-        studentsPanel.add(buttonPanel, BorderLayout.SOUTH);
+    // Button to assign grade
+    JButton assignGradeButton = new JButton("Assign/Update Grade");
+    assignGradeButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    assignGradeButton.setBorder(new RoundedBorder(16));
+    assignGradeButton.setFocusPainted(false);
+    assignGradeButton.setContentAreaFilled(true);
+    assignGradeButton.setBackground(new Color(220, 235, 255));
+    JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 2, 2));
+    buttonPanel.add(assignGradeButton);
+    studentsPanel.add(buttonPanel, BorderLayout.SOUTH);
 
-        // Split pane
-        JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, coursesPanel, studentsPanel);
-        splitPane.setResizeWeight(0.4);
-        add(splitPane, BorderLayout.CENTER);
+    // Split pane
+    JSplitPane splitPane = new JSplitPane(JSplitPane.VERTICAL_SPLIT, coursesPanel, studentsPanel);
+    splitPane.setResizeWeight(0.4);
+    add(splitPane, BorderLayout.CENTER);
 
-        // Load data
-        loadCourses();
+    // Load data
+    loadCourses();
 
-        // Add listener for course selection
-        coursesTable.getSelectionModel().addListSelectionListener(e -> {
+    // Add listener for course selection
+    coursesTable.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting()) {
                 int selectedRow = coursesTable.getSelectedRow();
                 if (selectedRow != -1) {

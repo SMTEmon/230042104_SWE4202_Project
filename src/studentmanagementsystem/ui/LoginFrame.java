@@ -6,39 +6,104 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 
 public class LoginFrame extends JFrame {
+    // Custom rounded border for modern buttons
+    private static class RoundedBorder extends javax.swing.border.AbstractBorder {
+        private final int radius;
+        public RoundedBorder(int radius) { this.radius = radius; }
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.setColor(Color.GRAY);
+            g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+        }
+        @Override
+        public Insets getBorderInsets(Component c) { return new Insets(4, 8, 4, 8); }
+        @Override
+        public Insets getBorderInsets(Component c, Insets insets) { return getBorderInsets(c); }
+    }
 
     private JTextField userField;
     private JPasswordField passField;
 
+    private boolean darkMode = false;
+
     public LoginFrame() {
-        setTitle("Student Management System - Login");
-        setSize(400, 200);
+        setTitle("Login");
+        setSize(300, 160);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLocationRelativeTo(null); // Center the frame
-        setLayout(new BorderLayout(10, 10));
+        setLocationRelativeTo(null);
+        setLayout(new BorderLayout(5, 5));
 
-        // Panel for input fields
-        JPanel panel = new JPanel(new GridLayout(2, 2, 5, 5));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    // Create panel for username and password fields
+        JPanel panel = new JPanel(new GridLayout(2, 2, 2, 2));
+        panel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
-        panel.add(new JLabel("Username:"));
+        JLabel userLabel = new JLabel("Username:");
+        userLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        panel.add(userLabel);
         userField = new JTextField();
+        userField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         panel.add(userField);
 
-        panel.add(new JLabel("Password:"));
+        JLabel passLabel = new JLabel("Password:");
+        passLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        panel.add(passLabel);
         passField = new JPasswordField();
+        passField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         panel.add(passField);
 
-        // Panel for the button
-        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER));
-        JButton loginButton = new JButton("Login");
-        buttonPanel.add(loginButton);
+    // Create panel for login and theme toggle buttons
+        JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 2));
+    JButton loginButton = new JButton("Login");
+    loginButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    loginButton.setBorder(new RoundedBorder(16));
+    loginButton.setFocusPainted(false);
+    loginButton.setContentAreaFilled(true);
+    loginButton.setBackground(new Color(220, 235, 255));
+    buttonPanel.add(loginButton);
 
+    JButton toggleButton = new JButton("Dark Mode");
+    toggleButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    toggleButton.setBorder(new RoundedBorder(16));
+    toggleButton.setFocusPainted(false);
+    toggleButton.setContentAreaFilled(true);
+    toggleButton.setBackground(new Color(220, 235, 255));
+    buttonPanel.add(toggleButton);
+
+        // Add panels to frame
         add(panel, BorderLayout.CENTER);
         add(buttonPanel, BorderLayout.SOUTH);
 
-        // Action listener for login button
+        // Handle login button click
         loginButton.addActionListener(this::performLogin);
+
+        // Handle dark/light mode toggle button click
+        toggleButton.addActionListener(e -> {
+            darkMode = !darkMode;
+            updateTheme(panel, buttonPanel, userLabel, passLabel, loginButton, toggleButton);
+            toggleButton.setText(darkMode ? "Light Mode" : "Dark Mode");
+        });
+        // Set initial theme
+        updateTheme(panel, buttonPanel, userLabel, passLabel, loginButton, toggleButton);
+    }
+
+    private void updateTheme(JPanel panel, JPanel buttonPanel, JLabel userLabel, JLabel passLabel, JButton loginButton, JButton toggleButton) {
+        Color bg = darkMode ? new Color(40, 40, 40) : Color.WHITE;
+        Color fg = darkMode ? Color.WHITE : Color.BLACK;
+        Color btnBg = darkMode ? new Color(60, 60, 60) : new Color(240, 240, 240);
+
+        panel.setBackground(bg);
+        buttonPanel.setBackground(bg);
+        userLabel.setForeground(fg);
+        passLabel.setForeground(fg);
+        userField.setBackground(btnBg);
+        userField.setForeground(fg);
+        passField.setBackground(btnBg);
+        passField.setForeground(fg);
+        loginButton.setBackground(btnBg);
+        loginButton.setForeground(fg);
+        toggleButton.setBackground(btnBg);
+        toggleButton.setForeground(fg);
+        getContentPane().setBackground(bg);
     }
 
     private void performLogin(ActionEvent e) {

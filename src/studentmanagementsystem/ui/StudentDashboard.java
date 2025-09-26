@@ -10,17 +10,32 @@ import java.util.Map;
 import java.util.stream.Collectors;
 
 public class StudentDashboard extends JFrame {
+    // Custom rounded border for modern buttons
+    private static class RoundedBorder extends javax.swing.border.AbstractBorder {
+        private final int radius;
+        public RoundedBorder(int radius) { this.radius = radius; }
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.setColor(Color.GRAY);
+            g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+        }
+        @Override
+        public Insets getBorderInsets(Component c) { return new Insets(4, 8, 4, 8); }
+        @Override
+        public Insets getBorderInsets(Component c, Insets insets) { return getBorderInsets(c); }
+    }
 
     private String studentId;
 
     public StudentDashboard(String studentId) {
         this.studentId = studentId;
-        setTitle("Student Dashboard - " + studentId);
-        setSize(800, 600);
+        setTitle("Student - " + studentId);
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JTabbedPane tabbedPane = new JTabbedPane();
+        tabbedPane.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 
         tabbedPane.add("My Profile", createProfilePanel());
         tabbedPane.add("Enrolled Courses", createCoursesPanel());
@@ -30,8 +45,8 @@ public class StudentDashboard extends JFrame {
     }
 
     private JPanel createProfilePanel() {
-        JPanel panel = new JPanel(new GridLayout(3, 2, 10, 10));
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    JPanel panel = new JPanel(new GridLayout(3, 2, 2, 2));
+    panel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
         Student student = FileHandler.readStudents().stream()
                 .filter(s -> s.getId().equals(studentId))
@@ -54,7 +69,13 @@ public class StudentDashboard extends JFrame {
         JPanel panel = new JPanel(new BorderLayout());
         String[] columns = {"Course Code", "Title", "Credits", "Grade"};
         DefaultTableModel model = new DefaultTableModel(columns, 0);
-        JTable table = new JTable(model);
+    JTable table = new JTable(model);
+    // Example: If you add any action buttons to this panel, make them rounded like below
+    // JButton someButton = new JButton("Action");
+    // someButton.setBorder(new RoundedBorder(16));
+    // someButton.setFocusPainted(false);
+    // someButton.setContentAreaFilled(true);
+    // someButton.setBackground(new Color(220, 235, 255));
 
         List<Map<String, String>> enrollments = FileHandler.readEnrollments();
         List<Course> courses = FileHandler.readCourses();

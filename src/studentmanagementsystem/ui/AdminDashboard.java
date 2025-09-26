@@ -6,15 +6,29 @@ import javax.swing.*;
 import java.awt.*;
 
 public class AdminDashboard extends JFrame {
+    // Custom rounded border for modern buttons
+    private static class RoundedBorder extends javax.swing.border.AbstractBorder {
+        private final int radius;
+        public RoundedBorder(int radius) { this.radius = radius; }
+        @Override
+        public void paintBorder(Component c, Graphics g, int x, int y, int width, int height) {
+            g.setColor(Color.GRAY);
+            g.drawRoundRect(x, y, width - 1, height - 1, radius, radius);
+        }
+        @Override
+        public Insets getBorderInsets(Component c) { return new Insets(4, 8, 4, 8); }
+        @Override
+        public Insets getBorderInsets(Component c, Insets insets) { return getBorderInsets(c); }
+    }
 
     public AdminDashboard() {
-        setTitle("Admin Dashboard");
-        setSize(800, 600);
+        setTitle("Admin");
+        setSize(600, 400);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setLocationRelativeTo(null);
 
         JTabbedPane tabbedPane = new JTabbedPane();
-        tabbedPane.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+        tabbedPane.setFont(new Font("Segoe UI", Font.PLAIN, 13));
 
         // Panels for each function
         tabbedPane.add("Add Student", createAddStudentPanel());
@@ -27,35 +41,47 @@ public class AdminDashboard extends JFrame {
     }
 
     private JPanel createAddStudentPanel() {
-        JPanel panel = new JPanel(new GridBagLayout());
-        GridBagConstraints gbc = new GridBagConstraints();
-        panel.setBorder(BorderFactory.createEmptyBorder(20, 20, 20, 20));
+    JPanel panel = new JPanel(new GridBagLayout());
+    GridBagConstraints gbc = new GridBagConstraints();
+    panel.setBorder(BorderFactory.createEmptyBorder(8, 8, 8, 8));
 
-        gbc.insets = new Insets(5, 5, 5, 5);
-        gbc.anchor = GridBagConstraints.WEST;
-        gbc.fill = GridBagConstraints.HORIZONTAL;
+    gbc.insets = new Insets(2, 2, 2, 2);
+    gbc.anchor = GridBagConstraints.WEST;
+    gbc.fill = GridBagConstraints.HORIZONTAL;
 
         // Labels
         gbc.gridx = 0;
         gbc.gridy = 0;
-        panel.add(new JLabel("Student ID:"), gbc);
+    JLabel idLabel = new JLabel("Student ID:");
+    idLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    panel.add(idLabel, gbc);
         gbc.gridy++;
-        panel.add(new JLabel("Name:"), gbc);
+    JLabel nameLabel = new JLabel("Name:");
+    nameLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    panel.add(nameLabel, gbc);
         gbc.gridy++;
-        panel.add(new JLabel("Department:"), gbc);
+    JLabel deptLabel = new JLabel("Department:");
+    deptLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    panel.add(deptLabel, gbc);
         gbc.gridy++;
-        panel.add(new JLabel("Username:"), gbc);
+    JLabel userLabel = new JLabel("Username:");
+    userLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    panel.add(userLabel, gbc);
         gbc.gridy++;
-        panel.add(new JLabel("Password:"), gbc);
+    JLabel passLabel = new JLabel("Password:");
+    passLabel.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+    panel.add(passLabel, gbc);
 
         // Text Fields
         gbc.gridx = 1;
         gbc.gridy = 0;
         gbc.weightx = 1.0; // Allow text fields to expand horizontally
-        JTextField idField = new JTextField(15);
+    JTextField idField = new JTextField(10);
+    idField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         panel.add(idField, gbc);
         gbc.gridy++;
-        JTextField nameField = new JTextField(15);
+    JTextField nameField = new JTextField(10);
+    nameField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         panel.add(nameField, gbc);
         gbc.gridy++;
         JTextField deptField = new JTextField(15);
@@ -73,8 +99,12 @@ public class AdminDashboard extends JFrame {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
-        JButton addButton = new JButton("Add Student");
-        panel.add(addButton, gbc);
+    JButton addButton = new JButton("Add Student");
+    addButton.setBorder(new RoundedBorder(16));
+    addButton.setFocusPainted(false);
+    addButton.setContentAreaFilled(true);
+    addButton.setBackground(new Color(220, 235, 255));
+    panel.add(addButton, gbc);
         
         // Add vertical glue to push components to the top
         gbc.gridy++;
@@ -154,8 +184,12 @@ public class AdminDashboard extends JFrame {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
-        JButton addButton = new JButton("Add Instructor");
-        panel.add(addButton, gbc);
+    JButton addButton = new JButton("Add Instructor");
+    addButton.setBorder(new RoundedBorder(16));
+    addButton.setFocusPainted(false);
+    addButton.setContentAreaFilled(true);
+    addButton.setBackground(new Color(220, 235, 255));
+    panel.add(addButton, gbc);
 
         // Add vertical glue to push components to the top
         gbc.gridy++;
@@ -230,8 +264,12 @@ public class AdminDashboard extends JFrame {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
-        JButton addButton = new JButton("Add Course");
-        panel.add(addButton, gbc);
+    JButton addButton = new JButton("Add Course");
+    addButton.setBorder(new RoundedBorder(16));
+    addButton.setFocusPainted(false);
+    addButton.setContentAreaFilled(true);
+    addButton.setBackground(new Color(220, 235, 255));
+    panel.add(addButton, gbc);
         
         // Add vertical glue to push components to the top
         gbc.gridy++;
@@ -294,8 +332,12 @@ public class AdminDashboard extends JFrame {
         gbc.anchor = GridBagConstraints.EAST;
         gbc.fill = GridBagConstraints.NONE;
         gbc.weightx = 0;
-        JButton enrollButton = new JButton("Enroll Student");
-        panel.add(enrollButton, gbc);
+    JButton enrollButton = new JButton("Enroll Student");
+    enrollButton.setBorder(new RoundedBorder(16));
+    enrollButton.setFocusPainted(false);
+    enrollButton.setContentAreaFilled(true);
+    enrollButton.setBackground(new Color(220, 235, 255));
+    panel.add(enrollButton, gbc);
 
         // Add vertical glue to push components to the top
         gbc.gridy++;
