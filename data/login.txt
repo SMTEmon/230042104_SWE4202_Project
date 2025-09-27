@@ -3,3 +3,10 @@ rahman,pass123,Instructor,I001
 alice,pass123,Student,S001
 emon,emon,Student,2300
 JN,JN,Instructor,JN
+alam,alam123,Instructor,I003
+smith,smith123,Instructor,I004
+bob,bob123,Student,S002
+chowdhury,chow123,Instructor,I005
+islam,islam123,Instructor,I006
+charlie,charlie123,Student,S003
+david,david123,Student,S004

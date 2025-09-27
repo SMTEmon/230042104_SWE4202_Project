@@ -24,7 +24,7 @@ public class LoginFrame extends JFrame {
     private JTextField userField;
     private JPasswordField passField;
 
-    private boolean darkMode = false;
+    // ...removed dark mode feature...
 
     public LoginFrame() {
         setTitle("Login");
@@ -51,23 +51,15 @@ public class LoginFrame extends JFrame {
         passField.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         panel.add(passField);
 
-    // Create panel for login and theme toggle buttons
+        // Create panel for login button only
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 2, 2));
-    JButton loginButton = new JButton("Login");
-    loginButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-    loginButton.setBorder(new RoundedBorder(16));
-    loginButton.setFocusPainted(false);
-    loginButton.setContentAreaFilled(true);
-    loginButton.setBackground(new Color(220, 235, 255));
-    buttonPanel.add(loginButton);
-
-    JButton toggleButton = new JButton("Dark Mode");
-    toggleButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-    toggleButton.setBorder(new RoundedBorder(16));
-    toggleButton.setFocusPainted(false);
-    toggleButton.setContentAreaFilled(true);
-    toggleButton.setBackground(new Color(220, 235, 255));
-    buttonPanel.add(toggleButton);
+        JButton loginButton = new JButton("Login");
+        loginButton.setFont(new Font("Segoe UI", Font.PLAIN, 12));
+        loginButton.setBorder(new RoundedBorder(16));
+        loginButton.setFocusPainted(false);
+        loginButton.setContentAreaFilled(true);
+        loginButton.setBackground(new Color(220, 235, 255));
+        buttonPanel.add(loginButton);
 
         // Add panels to frame
         add(panel, BorderLayout.CENTER);
@@ -75,36 +67,9 @@ public class LoginFrame extends JFrame {
 
         // Handle login button click
         loginButton.addActionListener(this::performLogin);
-
-        // Handle dark/light mode toggle button click
-        toggleButton.addActionListener(e -> {
-            darkMode = !darkMode;
-            updateTheme(panel, buttonPanel, userLabel, passLabel, loginButton, toggleButton);
-            toggleButton.setText(darkMode ? "Light Mode" : "Dark Mode");
-        });
-        // Set initial theme
-        updateTheme(panel, buttonPanel, userLabel, passLabel, loginButton, toggleButton);
     }
 
-    private void updateTheme(JPanel panel, JPanel buttonPanel, JLabel userLabel, JLabel passLabel, JButton loginButton, JButton toggleButton) {
-        Color bg = darkMode ? new Color(40, 40, 40) : Color.WHITE;
-        Color fg = darkMode ? Color.WHITE : Color.BLACK;
-        Color btnBg = darkMode ? new Color(60, 60, 60) : new Color(240, 240, 240);
-
-        panel.setBackground(bg);
-        buttonPanel.setBackground(bg);
-        userLabel.setForeground(fg);
-        passLabel.setForeground(fg);
-        userField.setBackground(btnBg);
-        userField.setForeground(fg);
-        passField.setBackground(btnBg);
-        passField.setForeground(fg);
-        loginButton.setBackground(btnBg);
-        loginButton.setForeground(fg);
-        toggleButton.setBackground(btnBg);
-        toggleButton.setForeground(fg);
-        getContentPane().setBackground(bg);
-    }
+    // ...removed dark mode theme logic...
 
     private void performLogin(ActionEvent e) {
         String username = userField.getText();
