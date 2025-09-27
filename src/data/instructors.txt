@@ -1,3 +1,7 @@
 I001,Dr. Rahman,CSE
 I002,Dr. Khan,EEE
 JN,JN,CSE
+I003,Dr. Alam,PHY
+I004,Ms. Smith,ENG
+I005,Dr. Chowdhury,MTH
+I006,Dr. Islam,BIO

@@ -2,3 +2,9 @@ CSE101,Intro to Programming,3,I001
 MTH101,Calculus 1,3,I002
 EEE201,Digital Logic Design,3,I002
 SWE 4202,OOP,3,JN
+PHY101,Physics 1,3,I003
+ENG101,English Composition,2,I004
+CSE102,Data Structures,3,I001
+CSE201,Algorithms,3,I001
+MTH201,Linear Algebra,3,I005
+BIO101,Biology 1,3,I006

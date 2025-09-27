@@ -1,3 +1,5 @@
 S001,Alice,CSE
 S002,Bob,EEE
 2300,SMT,CSE
+S003,Charlie,PHY
+S004,David,ENG
